@@ -1,17 +1,9 @@
 const express = require('express');
-
 const server = express();
-
 server.use(express.json());
 
 const projects = [];
 let countRequest = 0;
-
-server.use((req,res,next) =>{  
-  countRequest++;
-  console.log(countRequest);
-  next();
-});
 
 function checkProject(req,res,next){
   const { id } = req.params.id;
@@ -22,6 +14,12 @@ function checkProject(req,res,next){
   }
   return next();
 }
+
+server.use((req,res,next) =>{  
+  countRequest++;
+  console.log(countRequest);
+  next();
+});
 
 server.get('/projects', (req, res) =>{
   return res.json(projects); 
